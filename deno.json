@@ -1,8 +1,8 @@
 {
   "tasks": {
-    "dev": "deno run --watch main.ts"
+    "dev": "deno run -ENR --watch main.ts"
   },
-  "imports": {
-    "@std/assert": "jsr:@std/assert@1"
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"]
   }
 }
