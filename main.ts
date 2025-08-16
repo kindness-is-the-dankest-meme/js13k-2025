@@ -1,4 +1,4 @@
-import { fres } from "./server/fres.ts";
+import { fstt } from "./server/fstt.ts";
 
 declare global {
   type F<T> = T extends new (...args: infer A) => infer R
@@ -6,9 +6,4 @@ declare global {
     : never;
 }
 
-Deno.serve(() =>
-  fres("501 - Not Implemented", {
-    status: 501,
-    statusText: "Not Implemented",
-  })
-);
+Deno.serve(() => fstt(501));
