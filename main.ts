@@ -1,4 +1,4 @@
-import { fstt } from "./server/fstt.ts";
+import { stat } from "./server/stat.ts";
 
 declare global {
   type F<T> = T extends new (...args: infer A) => infer R
@@ -6,4 +6,4 @@ declare global {
     : never;
 }
 
-Deno.serve(() => fstt(501));
+Deno.serve(() => stat(501));
