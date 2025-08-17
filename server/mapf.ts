@@ -8,12 +8,12 @@ export const mapf = (url: Request["url"], fs: Set<string>) => {
     { dir } = parsed;
   let { ext, name } = parsed;
 
-  if (ext === ".js") {
-    if (fs.has(nrml(dir, name, Exts.Ts))) ext = ".ts";
+  if (ext === Exts.Js && fs.has(nrml(dir, name, Exts.Ts))) {
+    ext = Exts.Ts;
   }
 
   if (name === "" && ext === "") {
-    ext = ".html";
+    ext = Exts.Html;
     name = "index";
   }
 
