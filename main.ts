@@ -17,8 +17,7 @@ declare global {
 }
 
 const fs = await wtch("public");
-
-Deno.serve(async ({ url }) => {
+const file = async ({ url }: Request): Promise<Response> => {
   const { dir, name, ext } = mapf(url, fs),
     path = nrml(dir, name, ext);
 
@@ -48,4 +47,15 @@ Deno.serve(async ({ url }) => {
   }
 
   return stat(501);
-});
+};
+
+const hupg = ({ headers }: Request) =>
+  headers.get("upgrade")?.toLowerCase() === "websocket";
+
+const sock = (req: Request): Response => {
+  const { socket: _, response: res } = Deno.upgradeWebSocket(req);
+  // TODO: do stuff with the socket
+  return res;
+};
+
+Deno.serve((req) => (hupg(req) ? sock : file)(req));
