@@ -3,7 +3,7 @@ import { relative } from "jsr:@std/path/relative";
 import { walk } from "./walk.ts";
 import { furl } from "./furl.ts";
 
-export const wtch = async (d: string) => {
+export const wtch = async (dir: string) => {
   /**
    * is this roughly the same as `URL.fileURLToPath`? ... maybe this just won't
    * work on Windows environments?
@@ -17,16 +17,16 @@ export const wtch = async (d: string) => {
      * n.b. `Deno.mainModule` here is
      * `"file:///Users/matt/Sites/kitdm/js13k-2025/main.ts"`
      */
-    await Array.fromAsync(walk(d, Deno.mainModule))
+    await Array.fromAsync(walk(dir, Deno.mainModule))
   );
 
   (async () => {
     /**
      * @see https://docs.deno.com/examples/watching_files/
      */
-    const dir = Deno.watchFs(d, { recursive: true });
+    const watcher = Deno.watchFs(dir, { recursive: true });
 
-    for await (const { kind, paths } of dir) {
+    for await (const { kind, paths } of watcher) {
       switch (kind) {
         case "create":
         case "rename": {
