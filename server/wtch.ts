@@ -6,6 +6,9 @@ export const wtch = async (dirname: string) => {
   );
 
   (async () => {
+    /**
+     * @see https://docs.deno.com/examples/watching_files/
+     */
     const dir = Deno.watchFs(dirname, { recursive: true });
 
     for await (const { kind, paths } of dir) {
